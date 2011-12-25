@@ -1,0 +1,10 @@
+#slider{width:450px;height:225px;position:relative;overflow:visible;}
+.item{width:450px;height:225px;display:block;}
+#controls{height:15px;display:block;background-color:#000;padding:5px 10px;}
+#num_nav{position:relative;float:left;display:block;text-align:center;}
+#num_nav ul{margin:0;padding:0;}
+#num_nav ul li{float:left;display:block;margin:0 2px;}
+#num_nav ul li a{width:15px;height:15px;display:block;padding:0 3px;background-color:#404040;color:#000;}
+#num_nav ul li a.active,#num_nav ul li a:hover{background-color:#e8e8e8;color:#8a8a8a;}
+#play_btn{width:100px;height:15px;position:relative;float:left;margin:0 auto;text-align:center;font-size:11px;color:#bbbbbb;line-height:12px;text-transform: uppercase;z-index: 10000;}
+#play_btn:hover{color:gray;}
