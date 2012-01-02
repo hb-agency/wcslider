@@ -61,12 +61,13 @@ class ContentWCSlider extends ContentElement
 					$this->strTemplate = 'ce_wcslider_start';
 					$this->Template = new FrontendTemplate($this->strTemplate);
 					$this->Template->wcsliderID = $this->wcsliderID;
+					list($startScript, $endScript) = $this->getScriptTags();
+					
 					//DO NOT ADD SCRIPT IF THE NUMBER OF ELEMENTS IS LESS THAN 2 (static)
-					if(!$this->countElements($this->pid, 'wcsliderstart')<=1)
+					if(!$this->countElements('wcsliderstart', $this->pid)<2)
 					{
-$strMootools = "<script type=\"text/javascript\">
-<!--//--><![CDATA[//><!--
-window.addEvent('domready', function() {
+$strMootools = $startScript . "\n" .
+"window.addEvent('domready', function() {
   var itemsHolder = $('". $this->wcsliderID . "');
   var myItems = $$('.item');
   var firstItem = myItems[0];";
@@ -99,8 +100,7 @@ $strMootools .=  "
   });
   mySlider_". $this->wcsliderID . ".start();
 });
-//--><!]]>
-</script> ";
+" . $endScript;
 	
 						$GLOBALS['TL_MOOTOOLS'][] = $strMootools;
 					}
@@ -125,7 +125,7 @@ $strMootools .=  "
 					$this->Template->disabled = $this->checkDisabled($this->pid) ? true : false;
 					if(!$this->Template->disabled)
 					{
-						$this->Template->disabled = $this->countElements($this->pid, 'wcsliderstop')<=1 ? true : false;
+						$this->Template->disabled = $this->countElements('wcsliderstop', $this->pid)< 2 ? true : false;
 					}
 				}
 				else
@@ -158,11 +158,16 @@ $strMootools .=  "
 
 		}
 		
-		
 		$this->Template->groupname = standardize($this->headline . '_' . $this->id);
 		$this->Template->headline = $this->jdHeadline;
 	}
 	
+	
+	/**
+	 * Check whether the disabled setting is on for a wcSlider combo
+	 * @param int
+	 * @return string
+	 */
 	protected function checkDisabled($intPid)
 	{
 		$intStartSorting = $this->getSliderElementSorting('wcsliderstart',$intPid);
@@ -175,7 +180,14 @@ $strMootools .=  "
 		return $objData->wcsliderDisabled;
 	}
 	
-	protected function countElements($intPid, $strSliderType)
+	
+	/**
+	 * Return the total number of elements for a particular wcSlider combo
+	 * @param string
+	 * @param int
+	 * @return mixed
+	 */
+	protected function countElements($strSliderType, $intPid)
 	{
 		switch($strSliderType)
 		{
@@ -184,10 +196,12 @@ $strMootools .=  "
 				$intStartSorting = $this->sorting;
 				$intEndSorting = $this->getSliderElementSorting('wcsliderstop',$intPid);
 				break;
+				
 			case 'wcsliderstop':
 				$intStartSorting = $this->getSliderElementSorting('wcsliderstart',$intPid);
 				$intEndSorting = $this->sorting;
 				break;
+				
 			default:
 				return 0;
 		}
@@ -197,14 +211,11 @@ $strMootools .=  "
 			$objData = $this->Database->prepare("SELECT COUNT(id) as count FROM tl_content WHERE sorting>? AND sorting<? AND pid=? AND invisible<>?")
 									  ->execute($intStartSorting,$intEndSorting,$this->pid,1);
 			
-						
-			if($objData->numRows < 1)
-			{
-				$intTotalElements = 0;
-			}else{
-				$intTotalElements = $objData->count;
-			}
-		}else{
+			$intTotalElements = ($objData->numRows < 1) ? 0 : $objData->count;		
+			
+		}
+		else
+		{
 			$intTotalElements = 0;
 		}			
 			
@@ -212,19 +223,46 @@ $strMootools .=  "
 	
 	}
 	
-	
+	/**
+	 * Return the sorting value for a particular element's companion
+	 * @param string
+	 * @param int
+	 * @return mixed
+	 */
 	protected function getSliderElementSorting($strSliderType, $intPid)
 	{
 		$objData = $this->Database->prepare("SELECT sorting FROM tl_content WHERE wcsliderType=? AND pid=?")
 								  ->limit(1)
 								  ->execute($strSliderType,$intPid);
 	
-		if($objData->numRows < 1)
+		return ($objData->numRows < 1) ? false : $objData->sorting;
+
+	}
+	
+	/**
+	 * Get html & javascript tags depending on output format (Contao 2.10)
+	 * @param boolean
+	 * @return array
+	 */
+	public static function getScriptTags()
+	{
+		global $objPage;
+
+		switch ($objPage->outputFormat)
 		{
-			return false;
-		}else{
-			
-			return $objData->sorting;				
+			case 'html5':
+				return array('<script>', '</script>');
+
+			case 'xhtml':
+			default:
+				if ($blnAjax)
+				{
+					return array('<script type="text/javascript">', '</script>');
+				}
+				else
+				{
+					return array('<script type="text/javascript">'."\n".'/* <![CDATA[ */', '/* ]]> */'."\n".'</script>');
+				}
 		}
 	}
 }
