@@ -34,7 +34,7 @@
 $GLOBALS['TL_DCA']['tl_content']['fields']['text']['eval']['mandatory'] = false;
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'wcsliderType';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['wcslider'] = 'type,wcsliderType';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['wcsliderwcslidersingle'] = '{type_legend},type,wcsliderType;{text_legend},text;{image_legend},addImage;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['wcsliderwcslidersingle'] = '{type_legend},type,wcsliderType,headline;{text_legend},text;{image_legend},addImage;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['wcsliderwcsliderstart'] = '{type_legend},type,wcsliderType,wcsliderID;{config_legend},wcsliderTimer,wcsliderOrientation,wcsliderDisabled,wcsliderPause;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['wcsliderwcsliderstop'] = '{type_legend},type,wcsliderType;{config_legend};{protected_legend:hide},protected;{expert_legend:hide},guests,';
 
