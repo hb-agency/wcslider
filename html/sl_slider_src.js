@@ -110,7 +110,7 @@ var SL_Slider = new Class({
             }else if(self.options.orientation == 'none') {
                 el.setStyle('left', 0);
                 el.setStyle('top', 0);
-                el.set('opacity', 0);
+                el.setStyle('opacity', 0);
 			}else{
                 el.setStyle('left', (-1 * itemW));
             }
@@ -120,6 +120,10 @@ var SL_Slider = new Class({
             {
             	el.setStyle('left', 0);
                 el.setStyle('top', 0);
+            }
+            else if(i==self.options.itemNum && self.options.orientation == 'none')
+            {
+            	el.setStyle('opacity', 1);
             }
             
 			// -- Number nav setup
