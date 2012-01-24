@@ -40,9 +40,9 @@ $GLOBALS['TL_LANG']['tl_content']['wcsliderPause']  		= array('Pause Slideshow a
  * Reference
  */
 
-$GLOBALS['TL_LANG']['tl_content']['wcslidersingle']    	= array('Single element', 'In this operation mode, the element will be converted into a sliding or fading pane. You can set up content using the rich text editor.');
-$GLOBALS['TL_LANG']['tl_content']['wcsliderstart']     	= array('Wrapper start', 'This operation mode allows to display multiple content elements in one sliding pane by inserting them between element <em>wrapper start</em> and <em>wrapper stop</em>.');
-$GLOBALS['TL_LANG']['tl_content']['wcsliderstop']      	= array('Wrapper stop', 'Indicates the end of a wrapper element.');
+$GLOBALS['TL_LANG']['tl_content']['wcsingle']    	= array('Single element', 'In this operation mode, the element will be converted into a sliding or fading pane. You can set up content using the rich text editor.');
+$GLOBALS['TL_LANG']['tl_content']['wcstart']     	= array('Wrapper start', 'This operation mode allows to display multiple content elements in one sliding pane by inserting them between element <em>wrapper start</em> and <em>wrapper stop</em>.');
+$GLOBALS['TL_LANG']['tl_content']['wcstop']      	= array('Wrapper stop', 'Indicates the end of a wrapper element.');
 $GLOBALS['TL_LANG']['tl_content']['horizontal']    		= 'Horizontal';
 $GLOBALS['TL_LANG']['tl_content']['vertical']     		= 'Vertical';
 $GLOBALS['TL_LANG']['tl_content']['none']      			= 'Fade';

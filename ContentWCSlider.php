@@ -55,7 +55,7 @@ class ContentWCSlider extends ContentElement
 		switch ($this->wcsliderType)
 		{
 			// Slider start
-			case 'wcsliderstart':
+			case 'wcstart':
 				if (TL_MODE == 'FE')
 				{
 					$this->strTemplate = 'ce_wcslider_start';
@@ -65,7 +65,7 @@ class ContentWCSlider extends ContentElement
 					list($startScript, $endScript) = $this->getScriptTags();
 					
 					//DO NOT ADD SCRIPT IF THE NUMBER OF ELEMENTS IS LESS THAN 2 (static)
-					if(!$this->countElements('wcsliderstart')<2)
+					if(!$this->countElements('wcstart')<2)
 					{
 $strMootools = $startScript . "\n" .
 "window.addEvent('domready', function() {
@@ -117,17 +117,17 @@ $strMootools .=  "
 				break;
 
 			// Slider end
-			case 'wcsliderstop':
+			case 'wcstop':
 				if (TL_MODE == 'FE')
 				{
-					$objStart = $this->getCompanion('wcsliderstop');
+					$objStart = $this->getCompanion('wcstop');
 
 					$this->strTemplate = 'ce_wcslider_stop';
 					$this->Template = new FrontendTemplate($this->strTemplate);
 					$this->Template->disabled = $objStart->wcsliderDisabled ? true : false;
 					if(!$this->Template->disabled)
 					{
-						$this->Template->disabled = $this->countElements('wcsliderstop')< 2 ? true : false;
+						$this->Template->disabled = $this->countElements('wcstop')< 2 ? true : false;
 					}
 					$this->Template->startid = $objStart->wcsliderID;
 				}
@@ -161,7 +161,7 @@ $strMootools .=  "
 
 		}
 		
-		$objStart = $this->getSliderElement('wcsliderstart', $this->sorting);
+		$objStart = $this->getSliderElement('wcstart', $this->sorting);
 		
 		$this->Template->groupname = standardize('wcslider_' . $objStart->id);
 	}
@@ -177,8 +177,8 @@ $strMootools .=  "
 	{
 		$objCompanion = $this->getCompanion($strSliderType);
 		
-		$intStartSorting = ($strSliderType=='wcsliderstart' ? $this->sorting : $objCompanion->sorting);
-		$intEndSorting = ($strSliderType=='wcsliderstop' ? $this->sorting : $objCompanion->sorting);
+		$intStartSorting = ($strSliderType=='wcstart' ? $this->sorting : $objCompanion->sorting);
+		$intEndSorting = ($strSliderType=='wcstop' ? $this->sorting : $objCompanion->sorting);
 		
 		if($intStartSorting && $intEndSorting)
 		{
@@ -205,7 +205,7 @@ $strMootools .=  "
 	 */
 	protected function getSliderElement($strSliderType, $intSorting)
 	{
-		$strOperator = ($strSliderType=='wcsliderstart' ? '<' : '>');
+		$strOperator = ($strSliderType=='wcstart' ? '<' : '>');
 		
 		$objData = $this->Database->prepare("SELECT * FROM tl_content WHERE wcsliderType=? AND pid=? AND sorting $strOperator ? AND invisible<>1")
 								  ->limit(1)
@@ -223,7 +223,7 @@ $strMootools .=  "
 	 */
 	protected function getCompanion($strSliderType)
 	{
-		$strType = ($strSliderType=='wcsliderstart' ? 'wcsliderstop' : 'wcsliderstart');
+		$strType = ($strSliderType=='wcstart' ? 'wcstop' : 'wcstart');
 	
 		return $this->getSliderElement($strType, $this->sorting);
 	}

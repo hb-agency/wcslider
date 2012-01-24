@@ -32,25 +32,25 @@
  */
  
 $GLOBALS['TL_DCA']['tl_content']['fields']['text']['eval']['mandatory'] = false;
-$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'wcsliderType';
+array_insert($GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'], 1, 'wcsliderType');
 $GLOBALS['TL_DCA']['tl_content']['palettes']['wcslider'] = 'type,wcsliderType';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['wcsliderwcslidersingle'] = '{type_legend},type,wcsliderType,headline;{text_legend},text;{image_legend},addImage;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['wcsliderwcsliderstart'] = '{type_legend},type,wcsliderType,wcsliderID;{config_legend},wcsliderTimer,wcsliderOrientation,wcsliderDisabled,wcsliderPause;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['wcsliderwcsliderstop'] = '{type_legend},type,wcsliderType;{config_legend};{protected_legend:hide},protected;{expert_legend:hide},guests,';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['wcsliderwcsingle'] = '{type_legend},type,wcsliderType,headline;{text_legend},text;{image_legend},addImage;{protected_legend:hide},protected;{expert_legend:hide},guests,invisible,cssID,space';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['wcsliderwcstart'] = '{type_legend},type,wcsliderType,wcsliderID;{config_legend},wcsliderTimer,wcsliderOrientation,wcsliderDisabled;{protected_legend:hide},protected;{expert_legend:hide},guests,invisible,cssID,space';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['wcsliderwcstop'] = '{type_legend},type,wcsliderType;{protected_legend:hide},protected;{expert_legend:hide},guests,invisible';
 
 
 // Fields		
 $GLOBALS['TL_DCA']['tl_content']['fields']['wcsliderType'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wcsliderType'],
-	'default'                 => 'wcslidersingle',
+	'default'                 => 'wcsingle',
 	'exclude'                 => true,
 	'inputType'               => 'radio',
-	'options'                 => array('wcslidersingle', 'wcsliderstart', 'wcsliderstop'),
+	'options'                 => array('wcsingle', 'wcstart', 'wcstop'),
 	'reference'               => &$GLOBALS['TL_LANG']['tl_content'],
 	'eval'                    => array('submitOnChange'=>true)
 );
-
+		
 $GLOBALS['TL_DCA']['tl_content']['fields']['wcsliderID'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wcsliderID'],
@@ -59,7 +59,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['wcsliderID'] = array
 	'inputType'               => 'text',
 	'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
 );
-
+		
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['wcsliderTimer'] = array
 (
@@ -69,7 +69,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['wcsliderTimer'] = array
 	'default'				  => '6000',
 	'eval'                    => array('maxlength'=>255, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50')
 );
-
+		
 $GLOBALS['TL_DCA']['tl_content']['fields']['wcsliderOrientation'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wcsliderOrientation'],
@@ -87,14 +87,6 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['wcsliderDisabled'] = array
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
 	'eval'                    => array('tl_class'=>'clr')
-);
-
-$GLOBALS['TL_DCA']['tl_content']['fields']['wcsliderPause'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wcsliderPause'],
-	'exclude'                 => true,
-	'inputType'               => 'checkbox',
-	'eval'                    => array('tl_class'=>'clr')
-);		
+);	
 		
 ?>
