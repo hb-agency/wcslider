@@ -65,7 +65,7 @@ class ContentWCSlider extends ContentElement
 					list($startScript, $endScript) = $this->getScriptTags();
 					
 					//DO NOT ADD SCRIPT IF THE NUMBER OF ELEMENTS IS LESS THAN 2 (static)
-					if(!$this->countElements('wcstart')<2)
+					if($this->countElements('wcstart')>1)
 					{
 $strMootools = $startScript . "\n" .
 "window.addEvent('domready', function() {
@@ -127,7 +127,7 @@ $strMootools .=  "
 					$this->Template->disabled = $objStart->wcsliderDisabled ? true : false;
 					if(!$this->Template->disabled)
 					{
-						$this->Template->disabled = $this->countElements('wcstop')< 2 ? true : false;
+						$this->Template->disabled = $this->countElements('wcstop')> 1 ? false : true;
 					}
 					$this->Template->startid = $objStart->wcsliderID;
 				}
